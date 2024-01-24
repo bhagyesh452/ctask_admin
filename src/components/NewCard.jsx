@@ -71,7 +71,9 @@ export default function NewCard({ name, year, ctype, damount }) {
     if (row === "all") {
       // If all checkboxes are already selected, clear the selection; otherwise, select all
       setSelectedRows((prevSelectedRows) =>
-        prevSelectedRows.length === data.length ? [] : data.map((row) => row)
+        prevSelectedRows.length === filteredData.length
+          ? []
+          : filteredData.map((row) => row)
       );
     } else {
       // Toggle the selection status of the row
@@ -91,32 +93,78 @@ export default function NewCard({ name, year, ctype, damount }) {
     }
   };
 
-  const handleConfirmAssign = () => {
-    closepopup();
-    Swal.fire("Data assigned");
+
+
+  const handleConfirmAssign = async () => {
+    const employeeSelection = name;
+    const selectedObjects = selectedRows;
+    if (selectedObjects.length !== 0) {
+      for (const obj of selectedObjects) {
+        try {
+          const response = await axios.post(
+            "http://localhost:3001/api/postData",
+            {
+              employeeSelection,
+              selectedObjects,
+            }
+          );
+          fetchData();
+          closepopup();
+          Swal.fire({
+            title: "Data Send!",
+            text: "Data successfully sent to the Employee",
+            icon: "success",
+          });
+
+          console.log("Data posted successfully");
+        } catch (err) {
+          console.log("Internal server Error", err);
+        }
+      }
+    } else {
+      Swal.fire("Please Select a file");
+    }
   };
+
+  console.log(selectedRows)
 
   const [filteredData, setfilteredData] = useState([]);
 
   const handleManualAssign = () => {
+   
     setfilteredData(data);
     functionopenpopup();
   };
 
   const handleDirectAssign = () => {
-    const filteredNewData = data.filter((item) =>
-      item["Company Name"].toLowerCase().includes("private limited")
-    );
-  //  const extrafilter = filteredNewData.filter((item) => {
-  //     const incorporationDate = item["Company Incorporation Date  "];
-  //     const nyear = new Date(incorporationDate).getFullYear();
-  //     return nyear === year; // Replace selectedYear with your desired year
-  //   });
-  
-    setfilteredData(filteredNewData);
-    functionopenpopup();
+    if (ctype === "PVT LTD") {
+      const filteredNewData = data.filter((item) =>
+        item["Company Name"].toLowerCase().includes("private limited")
+      );
+      const extrafilter = filteredNewData.filter((item) => {
+        const incorporationDate = item["Company Incorporation Date  "];
+        const nyear = new Date(incorporationDate).getFullYear();
+        return nyear === year; // Replace selectedYear with your desired year
+      });
+      const filteredextraData = extrafilter.slice(0, damount);
+      setfilteredData(filteredextraData);
+      functionopenpopup();
+    } else {
+      // const filteredNewData = data.filter((item) =>
+      //   item["Company Name"].toLowerCase().includes("llt")
+      // );
+      const extrafilter = data.filter((item) => {
+        const incorporationDate = item["Company Incorporation Date  "];
+        const nyear = new Date(incorporationDate).getFullYear();
+        console.log(nyear);
+        return nyear === year; // Replace selectedYear with your desired year
+      });
+
+      const filteredextraData = extrafilter.slice(0, damount);
+      setfilteredData(filteredextraData);
+      functionopenpopup();
+    }
   };
-    
 
   return (
     <Box sx={{ minWidth: 275, width: "28vw" }}>

@@ -468,6 +468,11 @@ function Leads() {
       })
       .then((response) => {
         console.log("Data sent Successfully");
+        Swal.fire({
+          title: "Data Added!",
+          text: "Successfully added new Data!",
+          icon: "success",
+        });
         fetchData();
         closepopupNew();
       })

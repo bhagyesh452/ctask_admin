@@ -12,6 +12,7 @@ import Notification from "./Notification";
 import Avatar from '@mui/material/Avatar';
 import Bell from "./Bell";
 import axios from "axios";
+import Bellicon from "./Bellicon";
 // import "./styles/header.css"
 
 
@@ -72,7 +73,7 @@ function Header({ name, designation}) {
             </a>
           </h1>
           <div style={{display:"flex" , alignItems:"center"}} className="navbar-nav flex-row order-md-last">
-          <Bell style={{left:"831px !important"}} data={requestData} gdata = {requestGData}/>
+          <Bellicon data={requestData} gdata = {requestGData}/>
           <Avatar sx={{ width: 32, height: 32 }}/>
             <div className="nav-item dropdown">
               <button
@@ -110,7 +111,7 @@ function Header({ name, designation}) {
                 </a>
               </div>
             </div>
-            <Notification belldata={requestData} bellGdata = {requestGData}/>
+            <Notification/>
             <div
               style={{ display: "flex", alignItems: "center" }}
               className="item"
