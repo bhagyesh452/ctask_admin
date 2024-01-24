@@ -347,7 +347,13 @@ function Leads() {
                   csvdata,
                 }
               );
-              window.location.reload();
+              Swal.fire({
+                title: "Data Send!",
+                text: "Data successfully sent to the Employee",
+                icon: "success",
+              });
+              fetchData();
+              closepopup();
               console.log("Data posted successfully");
             } catch (err) {
               console.log("Internal server Error", err);
@@ -388,7 +394,14 @@ function Leads() {
         try {
           await axios.post("http://localhost:3001/api/leads", csvdata);
           console.log("Data sent successfully");
+          Swal.fire({
+            title: "Data Send!",
+            text: "Data successfully sent to the Employee",
+            icon: "success",
+          });
+         
           fetchData();
+          closepopup();
         } catch (error) {
           if (error.response.status !== 500) {
             setErrorMessage(error.response.data.error);
@@ -1066,7 +1079,7 @@ function Leads() {
                 <div
                   style={{ margin: "5px 0px 0px 0px" }}
                   className="form-control"
-                  onClick={{}}
+                  
                 >
                   <input
                     type="file"

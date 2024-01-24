@@ -41,7 +41,7 @@ export default function NewCard({ name, year, ctype, damount }) {
 
       // Set the retrieved data in the state
       const filteredData = response.data.filter(
-        (item) => item.ename === "Select Employee"
+        (item) => item.ename === "Not Alloted"
       );
 
       setData(filteredData);
@@ -104,20 +104,19 @@ export default function NewCard({ name, year, ctype, damount }) {
   };
 
   const handleDirectAssign = () => {
-    const filterednewData = data.filter((item) =>
-      item["Company Name"].includes("Private Limited")
+    const filteredNewData = data.filter((item) =>
+      item["Company Name"].toLowerCase().includes("private limited")
     );
-
-    setfilteredData(filterednewData);
-    console.log(data);
-
+  //  const extrafilter = filteredNewData.filter((item) => {
+  //     const incorporationDate = item["Company Incorporation Date  "];
+  //     const nyear = new Date(incorporationDate).getFullYear();
+  //     return nyear === year; // Replace selectedYear with your desired year
+  //   });
+  
+    setfilteredData(filteredNewData);
     functionopenpopup();
-    // .filter((item) => {
-    //   const incorporationDate = item["Company Incorporation Date  "];
-    //   const nyear = new Date(incorporationDate).getFullYear();
-    //   return nyear === year; // Replace selectedYear with your desired year
-    // });
   };
+    
 
   return (
     <Box sx={{ minWidth: 275, width: "28vw" }}>

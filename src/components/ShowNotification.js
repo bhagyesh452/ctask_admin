@@ -59,7 +59,7 @@ function ShowNotification() {
                 ))
               ) : (
                 <div>
-                  No new Notifications
+                
                   </div>
               )}
               {RequestGData.length!== 0 ? (

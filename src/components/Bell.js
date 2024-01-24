@@ -39,7 +39,7 @@ export default function Bell({ data, gdata }) {
         await axios.put(`http://localhost:3001/api/requestData/${id}`, {
           read: true,
         });
-        window.location.replace('/notification')
+        window.location.replace("/notification");
         // Assuming that you have a 'read' property in your MongoDB model
         // Adjust the URL and data structure based on your actual backend implementation
       }
@@ -56,7 +56,7 @@ export default function Bell({ data, gdata }) {
         await axios.put(`http://localhost:3001/api/requestgData/${id}`, {
           read: true,
         });
-        window.location.replace('/notification')
+        window.location.replace("/notification");
         // Assuming that you have a 'read' property in your MongoDB model
         // Adjust the URL and data structure based on your actual backend implementation
       }
@@ -174,63 +174,37 @@ export default function Bell({ data, gdata }) {
         Paper={{
           style: {
             maxHeight: ITEM_HEIGHT * 2,
-            right:"200px !important"
-          
-           
+            right: "200px !important",
           },
         }}
-        
       >
-        
         <Stack spacing={2}>
-          {data &&
-           data.slice(0, 2).map(
-              (option) =>
-                // Only render if 'read' is false
-                !option.read && (
-                  <MenuItem style={{marginTop:"0px"}}
-                    key={option.ename}
-                    onClick={() => {
-                      handleNotificationClick(option._id, option.read);
-                      // Change the background color to lightgrey when clicked
-                      option.read = true;
-                    }}
-                  >
-                    <div onClick={handlecolorChange}>
-                      <Item>{option.ename} is requesting for data</Item>
-                    </div>
-                  </MenuItem>
-                )
-            )}
-          {gdata &&
-            gdata.slice(0, 3).map(
-              (option) =>
-                // Only render if 'read' is false
-                !option.read && (
-                  <MenuItem style={{marginTop:"0px"}}
+          {(data || gdata) &&
+            [...(data || []), ...(gdata || [])] 
+              .filter((option) => !option.read) 
+              .slice(0, 5) 
+              .map((option) => (
+                <MenuItem
+                  style={{ marginTop: "0px" }}
                   key={option.ename}
                   onClick={() => {
-                    handleNotificationGClick(option._id, option.read);
+                    if (option.hasOwnProperty("gdata")) {
+                      handleNotificationGClick(option._id, option.read);
+                    } else {
+                      handleNotificationClick(option._id, option.read);
+                    }
                     // Change the background color to lightgrey when clicked
                     option.read = true;
                   }}
                 >
-                  
-                    <Item>{option.ename} is requesting for data</Item>
-                  
+                  <Item>{option.ename} is requesting for data</Item>
                 </MenuItem>
-                )
-            )}
+              ))}
         </Stack>
 
-       
-      
-
-        <div style={{  margin: "3px 0px"}} className="foot">
+        <div style={{ margin: "3px 0px" }} className="foot">
           <Link to={"/notification"}>
-            <div style={{minWidth:"20vw" , textAlign:"center"}}>
-              See All
-            </div>
+            <div style={{ minWidth: "20vw", textAlign: "center" }}>See All</div>
           </Link>
         </div>
       </Menu>
