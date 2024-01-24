@@ -1615,7 +1615,14 @@ function Leads() {
                           />
                         </th>
                       </th>
-                      <th>
+                      <th style={{
+                          position: "sticky",
+                          left: "59px",
+                          zIndex: 1,
+                          background: "white",
+                        }}
+                      
+                      >
                         <button className="table-sort" data-sort="sort-name">
                           Sr.No
                         </button>
@@ -1623,7 +1630,7 @@ function Leads() {
                       <th
                         style={{
                           position: "sticky",
-                          left: "100px",
+                          left: "140px",
                           zIndex: 1,
                           background: "white",
                         }}
@@ -1716,13 +1723,20 @@ function Leads() {
                               onChange={() => handleCheckboxChange(company._id)}
                             />
                           </td>
-                          <td className="sort-name">
+                          <td
+                          style={{
+                            position: "sticky",
+                            left: "59px",
+                            zIndex: 1,
+                            background: "white",
+                          }}
+                          className="sort-name">
                             {startIndex + index + 1}
                           </td>
                           <td
                             style={{
                               position: "sticky",
-                              left: "100px",
+                              left: "140px",
                               zIndex: 1,
                               background: "white",
                             }}

@@ -11,9 +11,17 @@ import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
 import axios from 'axios';
 import { Link } from "react-router-dom";
+import { useState } from 'react';
 
 export default function Bellicon({data , gdata}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [count, setCount] = useState(0);
+  const totalCount = data.filter((item) => !item.read).length + gdata.filter((item) => !item.read).length;
+  
+console.log(totalCount)
+
+
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -97,7 +105,7 @@ export default function Bellicon({data , gdata}) {
               <path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"></path>
               <path d="M9 17v1a3 3 0 0 0 6 0v-1"></path>
             </svg>
-            <span class="badge bg-red"></span>
+            <span style={{fontSize:"10px", borderRadius:"12px"}} class="badge bg-red">{totalCount> 5 ? "5+" : totalCount}</span>
           </>
         ) : (
             <>
