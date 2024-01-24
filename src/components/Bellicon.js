@@ -105,7 +105,10 @@ console.log(totalCount)
               <path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"></path>
               <path d="M9 17v1a3 3 0 0 0 6 0v-1"></path>
             </svg>
-            <span style={{fontSize:"10px", borderRadius:"12px"}} class="badge bg-red">{totalCount> 5 ? "5+" : totalCount}</span>
+            <span style={{fontSize: "8px",
+    borderRadius: "10px",
+    marginBottom: "9px",
+    padding:"2px"}} className="badge bg-red">{totalCount> 5 ? "5+" : totalCount}</span>
           </>
         ) : (
             <>

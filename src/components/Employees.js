@@ -640,7 +640,9 @@ function Employees({ onEyeButtonClick }) {
                     <tbody>
                       <tr>
                         <td colSpan="10" style={{ textAlign: "center" }}>
-                          No data available
+                          <div className="no-data-div">
+                            No data Available
+                          </div>
                         </td>
                       </tr>
                     </tbody>
