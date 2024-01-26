@@ -195,7 +195,12 @@ export default function NewCard({ name, year, ctype, damount }) {
               style={{
                 width: "100vw",
                 borderRadius: "0px",
-                backgroundColor: "green",
+                backgroundColor: "#ceedce",
+                color:"#2e830b",
+                "&:hover": {
+                  backgroundColor: "#aabbcc !important",
+                  color: "#ffffff !important"
+                },
               }}
               className="btn btn-primary d-none d-sm-inline-block"
               onClick={handleDirectAssign}
@@ -206,7 +211,8 @@ export default function NewCard({ name, year, ctype, damount }) {
               style={{
                 width: "100vw",
                 borderRadius: "0px",
-                backgroundColor: "red",
+                backgroundColor: "#f4d0d0",
+                color:"#bc2929"
               }}
               className="btn btn-primary d-none d-sm-inline-block"
               onClick={handleManualAssign}
