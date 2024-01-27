@@ -11,6 +11,7 @@ import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../components/styles/table.css";
+import "./styles/main.css";
 import Swal from "sweetalert2";
 import {
   Button,
@@ -76,7 +77,7 @@ function Leads() {
       const response = await axios.get("http://localhost:3001/api/leads");
 
       // Set the retrieved data in the state
-      
+
       setData(response.data);
     } catch (error) {
       console.error("Error fetching data:", error.message);
@@ -399,7 +400,7 @@ function Leads() {
             text: "Data successfully sent to the Employee",
             icon: "success",
           });
-         
+
           fetchData();
           closepopup();
         } catch (error) {
@@ -539,14 +540,12 @@ function Leads() {
   };
 
   const handleconfirmAssign = async () => {
-
     const selectedObjects = data.filter((row) =>
       selectedRows.includes(row._id)
     );
     if (selectedObjects.length === 0) {
       Swal.fire("Empty Data!");
-      closepopupEmp()
-      
+      closepopupEmp();
     }
     console.log(selectedObjects, employeeSelection);
     for (const obj of selectedObjects) {
@@ -914,13 +913,14 @@ function Leads() {
           <div>
             {newempData.length !== 0 ? (
               <>
-                <div
-                  
-                  className="dialogAssign"
-                >
+                <div className="dialogAssign">
                   <div className="selector form-control">
                     <select
-                      style={{  width:"inherit" , border:"none" , outline:"none" }}
+                      style={{
+                        width: "inherit",
+                        border: "none",
+                        outline: "none",
+                      }}
                       value={employeeSelection}
                       onChange={(e) => {
                         setEmployeeSelection(e.target.value);
@@ -944,7 +944,8 @@ function Leads() {
           </div>
         </DialogContent>
         <div className="btn-list">
-          <button style={{width:"100vw", borderRadius:"0px"}}
+          <button
+            style={{ width: "100vw", borderRadius: "0px" }}
             onClick={handleconfirmAssign}
             className="btn btn-primary ms-auto"
           >
@@ -1047,11 +1048,10 @@ function Leads() {
               </div>
             </div>
           </div>
-         
         </DialogContent>
-        <Button onClick={handleSubmitData} variant="contained">
-              Submit
-            </Button>
+        <button className="btn btn-primary" onClick={handleSubmitData}>
+          Submit
+        </button>
       </Dialog>
 
       {/* ----------------------------ADD-Lead Ends here------------------------------------------------------------------------  */}
@@ -1084,7 +1084,6 @@ function Leads() {
                 <div
                   style={{ margin: "5px 0px 0px 0px" }}
                   className="form-control"
-                  
                 >
                   <input
                     type="file"
@@ -1213,9 +1212,10 @@ function Leads() {
                 </div>
               )}
             </DialogContent>
-            <Button variant="contained" onClick={handleUploadData}>
-              Submit
-            </Button>
+            <button className="btn btn-primary">
+            Submit
+            </button>
+            
           </Dialog>
         </div>
       )}
@@ -1282,12 +1282,13 @@ function Leads() {
                   <div style={{ margin: "0px 10px" }} className="addLeads">
                     <div className="btn-list">
                       <button
-                      onClick={data.length === "0" ? (
-                        Swal.fire("Please Import Some data first")
-                      ) : ()=>{
-                        functionopenpopupNew()
-                      } }
-                        
+                        onClick={
+                          data.length === "0"
+                            ? Swal.fire("Please Import Some data first")
+                            : () => {
+                                functionopenpopupNew();
+                              }
+                        }
                         className="btn btn-primary d-none d-sm-inline-block"
                       >
                         {/* <!-- Download SVG icon from http://tabler-icons.io/i/plus --> */}
@@ -1615,13 +1616,13 @@ function Leads() {
                           />
                         </th>
                       </th>
-                      <th style={{
+                      <th
+                        style={{
                           position: "sticky",
                           left: "59px",
                           zIndex: 1,
                           background: "white",
                         }}
-                      
                       >
                         <button className="table-sort" data-sort="sort-name">
                           Sr.No
@@ -1724,13 +1725,14 @@ function Leads() {
                             />
                           </td>
                           <td
-                          style={{
-                            position: "sticky",
-                            left: "59px",
-                            zIndex: 1,
-                            background: "white",
-                          }}
-                          className="sort-name">
+                            style={{
+                              position: "sticky",
+                              left: "59px",
+                              zIndex: 1,
+                              background: "white",
+                            }}
+                            className="sort-name"
+                          >
                             {startIndex + index + 1}
                           </td>
                           <td
