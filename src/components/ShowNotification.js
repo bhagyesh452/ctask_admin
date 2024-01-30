@@ -34,6 +34,7 @@ function ShowNotification() {
     fetchRequestDetails();
     fetchRequestGDetails();
   },[])
+
   return (
     <div>
       {" "}
@@ -55,7 +56,7 @@ function ShowNotification() {
             }} className="maincontent">
               {RequestData.length!== 0 ? (
                 RequestData.map((company)=>(
-                    <NewCard name={company.ename} year={company.year} ctype = {company.ctype} damount = {company.dAmount}/>
+                    <NewCard name={company.ename} year={company.year} ctype = {company.ctype} damount = {company.dAmount} id={company._id} assignStatus={company.assigned}/>
                 ))
               ) : (
                 <div>
@@ -64,7 +65,7 @@ function ShowNotification() {
               )}
               {RequestGData.length!== 0 ? (
                 RequestGData.map((company)=>(
-                    <NewGCard name={company.ename}  damount = {company.dAmount}/>
+                    <NewGCard name={company.ename}  damount = {company.dAmount} id={company._id} assignStatus={company.assigned}/>
                 ))
               ) : (
                 <div>

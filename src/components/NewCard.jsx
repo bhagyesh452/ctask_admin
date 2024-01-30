@@ -26,7 +26,7 @@ const bull = (
   </Box>
 );
 
-export default function NewCard({ name, year, ctype, damount }) {
+export default function NewCard({id, name, year, ctype, damount,assignStatus }) {
   const [data, setData] = useState([]);
   const [open, openchange] = useState(false);
   const functionopenpopup = () => {
@@ -41,7 +41,7 @@ export default function NewCard({ name, year, ctype, damount }) {
 
       // Set the retrieved data in the state
       const filteredData = response.data.filter(
-        (item) => item.ename === "Not Alloted"
+        (item) => item.ename === "Select Employee" || item.ename === "Not Alloted"
       );
 
       setData(filteredData);
@@ -109,6 +109,11 @@ export default function NewCard({ name, year, ctype, damount }) {
             }
           );
           fetchData();
+          await axios.put(`http://localhost:3001/api/requestData/${id}`, {
+          read: true,
+          assigned:true
+        })
+          
           closepopup();
           Swal.fire({
             title: "Data Send!",
@@ -137,7 +142,8 @@ export default function NewCard({ name, year, ctype, damount }) {
   };
 
   const handleDirectAssign = () => {
-    if (ctype === "PVT LTD") {
+    if (ctype === "PVT LTD" && data.length!==0) {
+      
       const filteredNewData = data.filter((item) =>
         item["Company Name"].toLowerCase().includes("private limited")
       );
@@ -150,10 +156,10 @@ export default function NewCard({ name, year, ctype, damount }) {
       setfilteredData(filteredextraData);
       functionopenpopup();
     } else {
-      // const filteredNewData = data.filter((item) =>
-      //   item["Company Name"].toLowerCase().includes("llt")
-      // );
-      const extrafilter = data.filter((item) => {
+      const filteredNewData = data.filter((item) =>
+        item["Company Name"].toLowerCase().includes("llt")
+      );
+      const extrafilter = filteredNewData.filter((item) => {
         const incorporationDate = item["Company Incorporation Date  "];
         const nyear = new Date(incorporationDate).getFullYear();
         console.log(nyear);
@@ -168,7 +174,9 @@ export default function NewCard({ name, year, ctype, damount }) {
 
   return (
     <Box sx={{ minWidth: 275, width: "28vw" }}>
-      <Card style={{ padding: "10px" }} variant="outlined">
+      <Card style={{ padding: "10px" ,
+    backgroundColor: assignStatus && "#d3d2d2de" ,
+    }} variant="outlined">
         <React.Fragment>
           <CardContent>
             <Typography
@@ -204,6 +212,7 @@ export default function NewCard({ name, year, ctype, damount }) {
               }}
               className="btn btn-primary d-none d-sm-inline-block"
               onClick={handleDirectAssign}
+              disabled={assignStatus}
             >
               Accept
             </button>
@@ -216,6 +225,7 @@ export default function NewCard({ name, year, ctype, damount }) {
               }}
               className="btn btn-primary d-none d-sm-inline-block"
               onClick={handleManualAssign}
+              disabled={assignStatus}
             >
               Assign Manually
             </button>

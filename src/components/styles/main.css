@@ -28,3 +28,9 @@ background-color: #f6df9f !important;
     border: 1px solid #ffb900 !important;
     
 }
+.hr-1
+{
+    width: 100%;
+    height: 1px;
+    background: #ccc;
+}

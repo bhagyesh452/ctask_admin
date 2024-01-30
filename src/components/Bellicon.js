@@ -40,14 +40,14 @@ console.log(totalCount)
   const handleNotificationClick = async (id, read) => {
     try {
       // Update the notification in the backend (set 'read' to true)
-      if (read === false) {
-        await axios.put(`http://localhost:3001/api/requestData/${id}`, {
-          read: true,
-        });
+      // if (read === false) {
+      //   await axios.put(`http://localhost:3001/api/requestData/${id}`, {
+      //     read: true,
+      //   });
         window.location.replace("/notification");
         // Assuming that you have a 'read' property in your MongoDB model
         // Adjust the URL and data structure based on your actual backend implementation
-      }
+      // }
 
       // Close the menu
     } catch (error) {
@@ -57,19 +57,23 @@ console.log(totalCount)
   const handleNotificationGClick = async (id, read) => {
     try {
       // Update the notification in the backend (set 'read' to true)
-      if (read === false) {
-        await axios.put(`http://localhost:3001/api/requestgData/${id}`, {
-          read: true,
-        });
+      // if (read === false) {
+      //   await axios.put(`http://localhost:3001/api/requestgData/${id}`, {
+      //     read: true,
+      //   });
         window.location.replace("/notification");
         // Assuming that you have a 'read' property in your MongoDB model
         // Adjust the URL and data structure based on your actual backend implementation
-      }
+      
 
       // Close the menu
     } catch (error) {
       console.error("Error updating notification:", error.message);
     }
+  };
+
+  const indianOptions = {
+    timeZone: 'Asia/Kolkata',
   };
 
 
@@ -149,7 +153,10 @@ console.log(totalCount)
               <path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"></path>
               <path d="M9 17v1a3 3 0 0 0 6 0v-1"></path>
             </svg>
-            <span class="badge bg-red"></span>
+            <span style={{fontSize: "8px",
+    borderRadius: "10px",
+    marginBottom: "9px",
+    padding:"2px"}} className="badge bg-red">{totalCount> 5 ? "5+" : totalCount}</span>
           </>
         ) : (
           <>
@@ -229,7 +236,8 @@ console.log(totalCount)
                     option.read = true;
                   }}
                 >
-                    <Item style={{alignItems:"center"}} className='d-flex' ><Avatar /> {option.ename} is requesting for data</Item>
+                    <Item style={{alignItems:"center"}} className='d-flex' ><Avatar /> {option.ename} is requesting for data 
+                    <span style={{marginLeft: "10px", color: "#409d40"}}>{(option.cTime)}</span> </Item>
                 
                 </MenuItem>
               ))}

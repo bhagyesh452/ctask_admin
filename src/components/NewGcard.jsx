@@ -20,15 +20,13 @@ import EnhancedTable from "./EnhancedTableHead";
 const bull = (
   <Box
     component="span"
-    sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
+    sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
   >
     •
   </Box>
 );
 
-
-
-export default function NewGCard({name,damount}) {
+export default function NewGCard({ id, name, damount, assignStatus }) {
   const [data, setData] = useState([]);
   const [open, openchange] = useState(false);
   const functionopenpopup = () => {
@@ -43,7 +41,8 @@ export default function NewGCard({name,damount}) {
 
       // Set the retrieved data in the state
       const filteredData = response.data.filter(
-        (item) => item.ename === "Not Alloted"
+        (item) =>
+          item.ename === "Select Employee" || item.ename === "Not Alloted"
       );
 
       setData(filteredData);
@@ -73,9 +72,10 @@ export default function NewGCard({name,damount}) {
     if (row === "all") {
       // If all checkboxes are already selected, clear the selection; otherwise, select all
       setSelectedRows((prevSelectedRows) =>
-        prevSelectedRows.length === filteredData.length ? [] : filteredData.map((row) => row)
+        prevSelectedRows.length === filteredData.length
+          ? []
+          : filteredData.map((row) => row)
       );
- 
     } else {
       // Toggle the selection status of the row
       setSelectedRows((prevSelectedRows) => {
@@ -94,41 +94,41 @@ export default function NewGCard({name,damount}) {
     }
   };
 
-
-
-  const handleConfirmAssign = async() => {
+  const handleConfirmAssign = async () => {
     const employeeSelection = name;
     const selectedObjects = selectedRows;
     if (selectedObjects.length !== 0) {
       for (const obj of selectedObjects) {
-      
-          try {
-            const response = await axios.post("http://localhost:3001/api/postData", {
+        try {
+          const response = await axios.post(
+            "http://localhost:3001/api/postData",
+            {
               employeeSelection,
               selectedObjects,
-            });
-            fetchData();
-            closepopup();
-            Swal.fire({
-              title: "Data Send!",
-              text: "Data successfully sent to the Employee",
-              icon: "success",
-            });
-            
-            console.log("Data posted successfully");
-          } catch (err) {
-            console.log("Internal server Error", err);
-          }
-        
-          
+            }
+          );
+          await axios.put(`http://localhost:3001/api/requestgData/${id}`, {
+            read: true,
+            assigned: true,
+          });
+          fetchData();
+          closepopup();
+          Swal.fire({
+            title: "Data Send!",
+            text: "Data successfully sent to the Employee",
+            icon: "success",
+          });
+
+          console.log("Data posted successfully");
+        } catch (err) {
+          console.log("Internal server Error", err);
+        }
       }
     } else {
       Swal.fire("Please Select a file");
     }
-   
   };
 
-  
   const [filteredData, setfilteredData] = useState([]);
 
   const handleManualAssign = () => {
@@ -136,19 +136,16 @@ export default function NewGCard({name,damount}) {
     functionopenpopup();
   };
 
-  const handleDirectAssign = () => {      
-
-      const filteredextraData = data.slice(0, damount);
-      setfilteredData(filteredextraData);
-      functionopenpopup();
-  
+  const handleDirectAssign = () => {
+    const filteredextraData = data.slice(0, damount);
+    setfilteredData(filteredextraData);
+    functionopenpopup();
   };
-console.log(selectedRows);
-
+  console.log(selectedRows);
 
   return (
     <Box sx={{ minWidth: 275, width: "28vw" }}>
-      <Card style={{ padding: "10px" }} variant="outlined">
+      <Card style={{ padding: "10px" , backgroundColor: assignStatus && "#d3d2d2de" }} variant="outlined">
         <React.Fragment>
           <CardContent>
             <Typography
@@ -173,14 +170,15 @@ console.log(selectedRows);
                 width: "100vw",
                 borderRadius: "0px",
                 backgroundColor: "#ceedce",
-                color:"#2e830b",
+                color: "#2e830b",
                 "&:hover": {
                   backgroundColor: "#aabbcc !important",
-                  color: "#ffffff !important"
+                  color: "#ffffff !important",
                 },
               }}
               className="btn btn-primary d-none d-sm-inline-block"
               onClick={handleDirectAssign}
+              disabled={assignStatus}
             >
               Accept
             </button>
@@ -189,10 +187,11 @@ console.log(selectedRows);
                 width: "100vw",
                 borderRadius: "0px",
                 backgroundColor: "#f4d0d0",
-                color:"#bc2929"
+                color: "#bc2929",
               }}
               className="btn btn-primary d-none d-sm-inline-block"
               onClick={handleManualAssign}
+              disabled={assignStatus}
             >
               Assign Manually
             </button>

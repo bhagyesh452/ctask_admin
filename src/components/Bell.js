@@ -70,6 +70,11 @@ export default function Bell({ data, gdata }) {
     setBackgroundColor("lightgrey");
   };
 
+  const unreadCountData = data.filter(item => !item.read).length;
+
+// Count objects with read:false in gdata array
+const unreadCountGData = gdata.filter(item => !item.read).length;
+
   return (
     <div>
       <IconButton
@@ -99,7 +104,7 @@ export default function Bell({ data, gdata }) {
               <path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"></path>
               <path d="M9 17v1a3 3 0 0 0 6 0v-1"></path>
             </svg>
-            <span class="badge bg-red"></span>
+            <span class="badge bg-red">{unreadCountData + unreadCountGData}</span>
           </>
         ) : (
             <>
@@ -140,7 +145,7 @@ export default function Bell({ data, gdata }) {
               <path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"></path>
               <path d="M9 17v1a3 3 0 0 0 6 0v-1"></path>
             </svg>
-            <span class="badge bg-red"></span>
+            <span class="badge bg-red">{unreadCountData + unreadCountGData}</span>
           </>
         ) : (
           <>

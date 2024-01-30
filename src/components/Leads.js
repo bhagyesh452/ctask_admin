@@ -337,7 +337,7 @@ function Leads() {
 
   const handleUploadData = async (e) => {
     if (selectedOption === "someoneElse") {
-      if (csvdata.length !== 0) {
+      if (csvdata.length !== 0 && newemployeeSelection!=="") {
         for (const obj of csvdata) {
           if (!obj.ename) {
             try {
@@ -1212,7 +1212,7 @@ function Leads() {
                 </div>
               )}
             </DialogContent>
-            <button className="btn btn-primary">
+            <button className="btn btn-primary" onClick={handleUploadData} >
             Submit
             </button>
             
