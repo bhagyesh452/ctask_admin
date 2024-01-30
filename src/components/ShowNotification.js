@@ -33,7 +33,7 @@ function ShowNotification() {
   useEffect(()=>{
     fetchRequestDetails();
     fetchRequestGDetails();
-  },[])
+  })
 
   return (
     <div>

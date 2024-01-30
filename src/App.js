@@ -4,13 +4,15 @@ import { BrowserRouter, Routes,Navigate, Route } from "react-router-dom";
 import Dashboard from './components/Dashboard';
 import Employees from './components/Employees';
 import EmployeeParticular from './components/EmployeeParticular';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Leads from './components/Leads';
 import ShowNotification from './components/ShowNotification';
+import io from 'socket.io-client';
 
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token') || null);
+
 
   return (
     <div className="App">

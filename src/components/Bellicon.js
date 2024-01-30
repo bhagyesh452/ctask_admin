@@ -11,15 +11,33 @@ import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
 import axios from 'axios';
 import { Link } from "react-router-dom";
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
+import { io } from 'socket.io-client';
 export default function Bellicon({data , gdata}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [count, setCount] = useState(0);
   const totalCount = data.filter((item) => !item.read).length + gdata.filter((item) => !item.read).length;
   
-console.log(totalCount)
 
+// useEffect(() => {
+//   // Connect to the Socket.io server
+//   const socket = io('http://localhost:3001');
+//   console.log(socket , "Socket connection");
+//   // Event handler for connection
+//   socket.on('connect', () => {
+//     console.log('Connected to Socket.io server');
+//   });
+
+//   // Event handler for disconnection
+//   socket.on('disconnect', () => {
+//     console.log('Disconnected from Socket.io server');
+//   });
+
+//   // Clean up the socket connection when the component unmounts
+//   return () => {
+//     socket.disconnect();
+//   };
+// }, []);
 
 
   const open = Boolean(anchorEl);
@@ -236,8 +254,17 @@ console.log(totalCount)
                     option.read = true;
                   }}
                 >
-                    <Item style={{alignItems:"center"}} className='d-flex' ><Avatar /> {option.ename} is requesting for data 
-                    <span style={{marginLeft: "10px", color: "#409d40"}}>{(option.cTime)}</span> </Item>
+                    <Item style={{alignItems:"center"}} className='d-flex' ><Avatar />
+                    <div className="cont-info">
+                    <h3 style={{margin:"0px"}}> {option.ename} </h3>
+                    <span>is requesting for data </span> </div> 
+                    <div className="timing">
+                    <span>{option.cDate}</span>
+                    <span style={{marginLeft: "10px", color: "#409d40"}}>{(option.cTime)}</span>
+                    </div>
+                    
+                    
+                     </Item>
                 
                 </MenuItem>
               ))}

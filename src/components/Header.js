@@ -13,6 +13,7 @@ import Avatar from '@mui/material/Avatar';
 import Bell from "./Bell";
 import axios from "axios";
 import Bellicon from "./Bellicon";
+import io from 'socket.io-client';
 // import "./styles/header.css"
 
 
@@ -23,7 +24,7 @@ function Header({ name, designation}) {
   useEffect(() => {
    fetchRequestDetails();
    fetchRequestGDetails();
-  }, []);
+  });
   const [requestData, setRequestData] = useState([]);
   const [requestGData, setRequestGData] = useState([]);
 
